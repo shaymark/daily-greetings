@@ -1,15 +1,102 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.onesignal.com https://onesignal.com; style-src 'self' 'unsafe-inline'; connect-src 'self' https://cdn.onesignal.com https://onesignal.com; img-src 'self' data: https:;">
-    <title>Vite App</title>
-    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
-</html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Greetings - OneSignal Notifications</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-bell"></i>
+                <h1>Daily Greetings</h1>
+            </div>
+            <p class="subtitle">Send beautiful notifications to your browser</p>
+        </header>
+
+        <main class="main-content">
+            <div class="notification-panel">
+                <div class="status-card">
+                    <div class="status-indicator" id="statusIndicator">
+                        <i class="fas fa-circle"></i>
+                        <span id="statusText">Initializing...</span>
+                    </div>
+                    <button class="permission-btn" id="permissionBtn" style="display: none;">
+                        <i class="fas fa-bell"></i>
+                        Enable Notifications
+                    </button>
+                </div>
+
+                <div class="notification-form">
+                    <h2>Send Notification</h2>
+                    <div class="form-group">
+                        <label for="notificationTitle">Title</label>
+                        <input type="text" id="notificationTitle" placeholder="Enter notification title" value="Hello! 👋">
+                    </div>
+                    <div class="form-group">
+                        <label for="notificationMessage">Message</label>
+                        <textarea id="notificationMessage" placeholder="Enter notification message" rows="3">Welcome to Daily Greetings! This is a test notification from OneSignal.</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="notificationIcon">Icon URL (optional)</label>
+                        <input type="url" id="notificationIcon" placeholder="https://example.com/icon.png">
+                    </div>
+                    <div class="form-group">
+                        <label for="notificationUrl">Click URL (optional)</label>
+                        <input type="url" id="notificationUrl" placeholder="https://example.com">
+                    </div>
+                    <button class="send-btn" id="sendBtn">
+                        <i class="fas fa-paper-plane"></i>
+                        Send Notification
+                    </button>
+                    <button class="send-btn" id="testBtn" style="background: #28a745; margin-top: 10px;">
+                        <i class="fas fa-vial"></i>
+                        Test Local Notification
+                    </button>
+                </div>
+
+                <div class="quick-actions">
+                    <h3>Quick Actions</h3>
+                    <div class="action-buttons">
+                        <button class="action-btn" data-title="Good Morning! ☀️" data-message="Rise and shine! Have a wonderful day ahead.">
+                            <i class="fas fa-sun"></i>
+                            Good Morning
+                        </button>
+                        <button class="action-btn" data-title="Good Afternoon! 🌤️" data-message="Hope your day is going great so far!">
+                            <i class="fas fa-cloud-sun"></i>
+                            Good Afternoon
+                        </button>
+                        <button class="action-btn" data-title="Good Evening! 🌙" data-message="Time to relax and unwind. Have a peaceful evening!">
+                            <i class="fas fa-moon"></i>
+                            Good Evening
+                        </button>
+                        <button class="action-btn" data-title="Reminder! ⏰" data-message="Don't forget to take a break and stay hydrated!">
+                            <i class="fas fa-clock"></i>
+                            Break Reminder
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="history-panel">
+                <h3>Notification History</h3>
+                <div class="history-list" id="historyList">
+                    <div class="empty-state">
+                        <i class="fas fa-history"></i>
+                        <p>No notifications sent yet</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- OneSignal SDK -->
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"></script>
+    <script src="app.js" defer></script>
+</body>
+</html> 

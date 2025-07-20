@@ -1,17 +1,34 @@
 {
-  "name": "daily-greeting-app",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "name": "daily-greetings",
+  "version": "1.0.0",
+  "description": "A beautiful web app for sending browser notifications using OneSignal",
+  "main": "index.html",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "start": "python -m http.server 8000",
+    "dev": "python -m http.server 8000",
+    "serve": "npx http-server -p 8000 -o"
   },
+  "keywords": [
+    "onesignal",
+    "notifications",
+    "web-app",
+    "browser-notifications",
+    "push-notifications"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/daily-greetings.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/daily-greetings/issues"
+  },
+  "homepage": "https://github.com/yourusername/daily-greetings#readme",
   "devDependencies": {
-    "vite": "^7.0.4"
+    "http-server": "^14.1.1"
   },
-  "dependencies": {
-    "onesignal-cordova-plugin": "^5.2.15"
+  "engines": {
+    "node": ">=14.0.0"
   }
-}
+} 
