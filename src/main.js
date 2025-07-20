@@ -28,24 +28,37 @@ setupCounter(document.querySelector('#counter'))
 
 let oneSignalReady = false;
 
-// Initialize OneSignal using the proper pattern
-window.OneSignal = window.OneSignal || [];
+// Wait for OneSignal to be available
+function initializeOneSignal() {
+  if (typeof OneSignal === 'undefined') {
+    console.log('OneSignal not loaded yet, retrying...');
+    setTimeout(initializeOneSignal, 100);
+    return;
+  }
 
-OneSignal.push(function () {
   console.log('OneSignal SDK loaded, initializing...');
   
+  // Use a minimal configuration without service workers
   OneSignal.init({
     allowLocalhostAsSecureOrigin: true,
     appId: "cac1d3e5-aea5-476a-a35d-f3ab9a167f80",
-    safari_web_id: "web.onesignal.auto.017f9378-7499-4b97-8d47-e55f2bb151c0",
-    notifyButton: {
-      enable: false, // Disable default button
-    },
     autoRegister: false,
-    // Disable service worker to avoid the error
-    serviceWorkerPath: null,
-    serviceWorkerParam: null,
-    serviceWorkerUpdaterPath: null,
+    // Explicitly disable all service worker features
+    serviceWorkerPath: false,
+    serviceWorkerParam: false,
+    serviceWorkerUpdaterPath: false,
+    serviceWorkerRegistration: false,
+    // Disable features that require service workers
+    notifyButton: {
+      enable: false,
+    },
+    slidedown: {
+      prompts: {
+        slidedown: {
+          enabled: false,
+        },
+      },
+    },
   }).then(function() {
     console.log('OneSignal initialized successfully');
     oneSignalReady = true;
@@ -67,7 +80,7 @@ OneSignal.push(function () {
     console.error('Error initializing OneSignal:', error);
     oneSignalReady = true; // Allow manual registration even if init fails
   });
-});
+}
 
 // Add click handler for manual subscription
 document.addEventListener('DOMContentLoaded', function() {
@@ -141,3 +154,10 @@ document.addEventListener('DOMContentLoaded', function() {
     console.error('Subscribe button not found!');
   }
 });
+
+// Start initialization when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializeOneSignal);
+} else {
+  initializeOneSignal();
+}
